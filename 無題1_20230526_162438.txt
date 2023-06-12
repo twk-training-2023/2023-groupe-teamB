@@ -18,3 +18,10 @@ http://localhost:8080/PokeDictionary/view/pokemon/StartDB.jsp
 
 ポケモン検索/rol作成
 http://localhost:8080/PokemonFavorite/view/LoginView/Login.jsp
+
+
+
+
+
+aaaaa
+
