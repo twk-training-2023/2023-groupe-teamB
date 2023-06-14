@@ -1,0 +1,9 @@
+INDEX VERSION 1.132
+C:\home\2023-groupe-teamB\eclipse\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1566610709.index
+\Sample\src\main\java
+C:\home\2023-groupe-teamB\eclipse\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\361987898.index
+\PokemonFavorite\src\main\java
+C:\home\2023-groupe-teamB\eclipse\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2009327211.index
+\Sample\src\main\java
+C:\home\2023-groupe-teamB\eclipse\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\908034764.index
+\PokemonFavorite\src\main\java
