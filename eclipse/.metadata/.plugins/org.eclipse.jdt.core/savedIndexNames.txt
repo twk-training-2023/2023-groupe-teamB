@@ -1,2 +1,0 @@
-INDEX VERSION 1.132+C:\home\2023-groupe-teamB\eclipse\.metadata\.plugins\org.eclipse.jdt.core
-1865797976.index
