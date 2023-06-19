@@ -25,6 +25,7 @@ public class Calc extends HttpServlet {
     }
 
 	/**
+	 * @throws IOException 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,7 +45,6 @@ public class Calc extends HttpServlet {
 		//JSPへのフォワード処理
 		RequestDispatcher rd = request.getRequestDispatcher("/view/out.jsp");
 		rd.forward(request, response);
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**

@@ -3,8 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <title>POST送信データを扱うサーブレット</title>
-<head>
+</head>
 <body>
 	<div style="text-align: center;">
 		<h1>HelloWorld</h1>
