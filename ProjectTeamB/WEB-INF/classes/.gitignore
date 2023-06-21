@@ -1,2 +1,11 @@
+<<<<<<< HEAD
 /dao/
 /dto/
+=======
+/admin_servlet/
+/bean/
+/dao/
+/dto/
+/general_servlet/
+/login_servlet/
+>>>>>>> 74f5457934d0b8afc0c5cfbd7b003503b6b2dd63
