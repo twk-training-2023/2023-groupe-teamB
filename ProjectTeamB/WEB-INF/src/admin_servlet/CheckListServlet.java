@@ -28,11 +28,8 @@ public class CheckListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		//セッションからログインした名前を取得
-		//HttpSession session = request.getSession();
-		//String name = (String)session.getAttribute("name");
-		String name = "早瀬";
 		HttpSession session = request.getSession();
-		session.setAttribute("name", name);
+		String name = (String)session.getAttribute("name");
 		//利用するDAOのインスタンス生成
 		MessageDAO dao = new MessageDAO();
 		//引数を渡してメソッド実行
