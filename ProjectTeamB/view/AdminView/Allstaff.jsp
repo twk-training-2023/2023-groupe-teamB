@@ -20,7 +20,7 @@
 		&nbsp;&nbsp;&nbsp;
 		<a href="<%= request.getContextPath() %>/DeleteServlet">社員削除</a>
 		
-		<form method=get name=form1 action=>
+		<form method=get name=form1 action="<%= request.getContextPath() %>/ShowServlet">
 			<p>名前を検索して社員情報を表示</p>
 			<input type="text" name="name" size="50"> <input
 				type="submit" value="送信">
@@ -30,7 +30,7 @@
 			<tr><th width="100"></th></tr>
 			<%for (int i = 0; i < stdto.size(); i++) {%>
 				<%StaffBean stbe = stdto.get(i);%>
-			<tr><td align="center"><a href=""><%=stbe.getName()%></a></td></tr>
+			<tr><td align="center"><a href="<%= request.getContextPath() %>/ShowServlet?name=<%=stbe.getName()%>"><%=stbe.getName()%></a></td></tr>
 			<%}%>
 		</table>
 

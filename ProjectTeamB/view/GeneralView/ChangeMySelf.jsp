@@ -105,8 +105,8 @@
 			<span>&nbsp;&nbsp;&nbsp;</span>
 			<select name="skill_lv" >
 			<p>スキルレベルを選んでください</p>
-			  <option value="0">Lv0</option>
-			  <option value="1">Lv1</option>
+			  <option value="0,name">Lv0</option>
+			  <option value="1,name">Lv1</option>
 			  <option value="2">Lv2</option>
 			  <option value="3">Lv3</option>
 			  <option value="4">Lv4</option>
@@ -117,6 +117,10 @@
 			  <option value="9">Lv9</option>
 			</select>
 			<br/>
+			
+			1
+			
+			
 			
 		</form>
 	</div>

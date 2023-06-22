@@ -5,6 +5,9 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import bean.MessageBean;
+import dto.MessageDTO;
+
 public class MessageDAO {
 	ConstList_RoleUser conParam = new ConstList_RoleUser();
 	String url = conParam.getUrl();
@@ -32,6 +35,7 @@ public class MessageDAO {
 		}
 	}
 	
+	//一般ユーザー：社員の愚痴を投げる
 	public int insertMessage(String name,String message) {
 		Statement stmt = null;
 		ResultSet rs = null;
@@ -67,5 +71,40 @@ public class MessageDAO {
 		}
 		disconnect();
 		return say;
+	}
+	
+	//管理者ユーザー：社員の愚痴を表示
+	public MessageDTO selectMessage() {
+		Statement stmt = null;
+		ResultSet rs = null;
+		MessageDTO sdto = new MessageDTO();		//コンストラクタが呼び出される
+		String sql = "SELECT * FROM message_tbl;";
+		try {
+			connect();
+			// ②ステートメントを生成
+			stmt = conn.createStatement();
+			// ③SQLを実行
+			rs = stmt.executeQuery(sql);
+			// ④検索結果の処理
+			while (rs.next()) {
+				MessageBean sb = new MessageBean();
+				sb.setName(rs.getString("name"));
+				sb.setMessage(rs.getString("message"));
+				sdto.add(sb);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (stmt != null)
+					stmt.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		disconnect();
+		return sdto;
 	}
 }

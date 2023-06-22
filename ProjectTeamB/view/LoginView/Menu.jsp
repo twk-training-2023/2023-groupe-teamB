@@ -3,6 +3,7 @@
 <%@page import="bean.*"%>
 <jsp:useBean id="stdto" scope="request" class="dto.StaffDTO" />
 <%String name = (String)session.getAttribute("name") ;%>
+<%Integer staff_lv = (Integer)session.getAttribute("staff_lv") ;%>
 
 
 <!DOCTYPE html>
@@ -24,7 +25,10 @@
 	<h1>プラットフォーム</h1>
 	<br>
 	<a href = "<%= request.getContextPath() %>/view/GeneralView/MyPage.jsp" style="font-size: 15pt; color: #00ff00:">マイページ</a><br/>
+	
+	<%if(staff_lv == 1 ){ %>
 	<a href = "<%= request.getContextPath() %>/view/AdminView/AdminMenu.jsp" style="font-size: 15pt; color: #00ff00:">管理者ページ</a><br/>
+	<%} %>
 	</div>
 </body>
 </html>

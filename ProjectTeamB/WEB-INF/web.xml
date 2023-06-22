@@ -4660,14 +4660,7 @@
 		<url-pattern>/ProjectTeamB/LoginServlet</url-pattern>
 	</servlet-mapping>
 
-	<servlet><!-- 一般ユーザー：個人情報更新画面 -->
-		<servlet-name>ChangeMySelfServletMapping</servlet-name>
-		<servlet-class>general_servlet.ChangeMySelfServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ChangeMySelfServletMapping</servlet-name>
-		<url-pattern>/ProjectTeamB/ChangeMySelfServlet</url-pattern>
-	</servlet-mapping>
+
 
 
 	

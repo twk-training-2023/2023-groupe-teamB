@@ -35,11 +35,15 @@ String name = (String) session.getAttribute("name");
 		</form>
 		<p>---------------------------------------------------------------------------------------</p>
 		<h3>複数用</h3>
+		<form method=post name=form1
+			action="<%=request.getContextPath()%>/CmpAddServlet">
 		<p>ファイルの絶対パスを入力してください</p>
+		
 		<input type="text" name="fpass" size="50">
 		<p>
 			<input type="submit" value="追加">
 		</p>
+		</form>
 	</div>
 </body>
 </html>

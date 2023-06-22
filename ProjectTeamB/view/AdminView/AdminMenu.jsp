@@ -20,12 +20,12 @@
 			<input type="submit" value="押す">
 		</form>
 		<br>
-		<form method="get" name="form2" action=>
+		<form method="get" name="form2" action="<%= request.getContextPath() %>/CheckListServlet">
 			<p style="display: inline">社員からの連絡</p>
 			<input type="submit" value="押す">
 		</form>
 		<br>
-		<form method="get" name="form3" action=>
+		<form method="get" name="form3" action="<%= request.getContextPath() %>/SkillServlet">
 			<p style="display: inline">申請一覧</p>
 			<input type="submit" value="押す">
 		</form>

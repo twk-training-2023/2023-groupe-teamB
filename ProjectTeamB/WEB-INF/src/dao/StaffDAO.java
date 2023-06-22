@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -11,16 +12,16 @@ import bean.StaffBean;
 import dto.StaffDTO;
 
 public class StaffDAO {
-	
+
 	/*---------DBにログインログアウト用----------*/
-	
+
 	//ログイン用
 	ConstList_Main conParaM = new ConstList_Main();
 	String urL = conParaM.getUrl();
 	String useR = conParaM.getUser();
 	String passWord = conParaM.getPass();
 	private Connection con = null;
-	
+
 	//ログイン後
 	ConstList_RoleUser conParam = new ConstList_RoleUser();
 	String url = conParam.getUrl();
@@ -47,7 +48,7 @@ public class StaffDAO {
 			e.printStackTrace();
 		}
 	}
-	
+
 	//Connect DB(ログイン後)
 	public void connect() {
 		try {
@@ -68,13 +69,12 @@ public class StaffDAO {
 		}
 	}
 
-	
 	/*---------------------処理群--------------------*/
-	
+
 	//ログイン処理
 	public StaffDTO select(String email, String pass) {
 		ResultSet rset = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		StaffDTO stdto = new StaffDTO();
 
 		//SQL statement
@@ -93,11 +93,12 @@ public class StaffDAO {
 			con.setAutoCommit(false);
 
 			//Execute SELECT
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, email);
+			pstmt.setString(2, pass);
 
 			//Execute SQL
-			rset = stmt.executeQuery(sql);
-			
+			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
 				StaffBean stbe = new StaffBean();
@@ -120,8 +121,8 @@ public class StaffDAO {
 			try {
 				if (rset != null)
 					rset.close();
-				if (stmt != null)
-					stmt.close();
+				if (pstmt != null)
+					pstmt.close();
 				if (con != null)
 					con.close();
 			} catch (SQLException e) {
@@ -138,14 +139,14 @@ public class StaffDAO {
 	//一般ユーザー：パスワードの変更
 	public int ChngPss(String name, String pass) {
 		ResultSet rset = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 
 		//SQL statement
 		String sql = "UPDATE\n"
 				+ "Staff_tbl\n"
-				+ "set pass = '" + pass + "'\n"
-				+ "where name = '" + name + "'\n";
-		
+				+ "set pass =?\n"
+				+ "where name =?\n";
+
 		//Return result
 		int say = 0;
 
@@ -157,10 +158,12 @@ public class StaffDAO {
 			conn.setAutoCommit(false);
 
 			//Execute SELECT
-			stmt = conn.createStatement();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, pass);
 
 			//Execute SQL
-			say = stmt.executeUpdate(sql);
+			say = pstmt.executeUpdate();
 			conn.commit();
 
 		} catch (Exception e) {
@@ -170,8 +173,8 @@ public class StaffDAO {
 			try {
 				if (rset != null)
 					rset.close();
-				if (stmt != null)
-					stmt.close();
+				if (pstmt != null)
+					pstmt.close();
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
@@ -188,7 +191,7 @@ public class StaffDAO {
 	//一般ユーザー：社員情報の更新画面のグレー文字出力
 	public StaffDTO ChngMySlf(String name) {
 		ResultSet rset = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		StaffDTO stdto = new StaffDTO();
 
 		//SQL statement
@@ -200,7 +203,7 @@ public class StaffDAO {
 				+ "from Staff_tbl as main\n"
 				+ "join skill_tbl as sk on main.name = sk.name\n"
 				+ "join myself_tbl as my on main.name = my.name\n"
-				+ "where main.name = '" + name + "';\n";
+				+ "where main.name =?;\n";
 
 		try {
 			//Connect DB
@@ -210,10 +213,11 @@ public class StaffDAO {
 			conn.setAutoCommit(false);
 
 			//Execute SELECT
-			stmt = conn.createStatement();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
 
 			//Execute SQL
-			rset = stmt.executeQuery(sql);
+			rset = pstmt.executeQuery();
 
 			while (rset.next()) {
 				StaffBean stbe = new StaffBean();
@@ -231,8 +235,8 @@ public class StaffDAO {
 			try {
 				if (rset != null)
 					rset.close();
-				if (stmt != null)
-					stmt.close();
+				if (pstmt != null)
+					pstmt.close();
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
@@ -294,18 +298,23 @@ public class StaffDAO {
 		return stdto;
 
 	}
-	
+
 	//管理者ユーザー：社員追加
 	public int addStaff(String name, String email, String pass, int lv) {
 		ResultSet rset = null;
-		Statement stmt = null;
+		PreparedStatement pstmta = null;
+		PreparedStatement pstmtb = null;
+		PreparedStatement pstmtc = null;
 		int srt = 0; //1が成功、0が
 
-		Random r = new Random(); 
+		Random r = new Random();
 		int id = r.nextInt(10000);
 		//SQL statement
-		String sqlstaff = "insert into staff_TBL(id,name,email,pass,staff_lv) values('"+ id +"','" + name + "','" + email+ "','" + pass + "','" + lv + "');";
-		String sqlmyself ="insert into myself_TBL(name,myself) values('" + name + "','nocontext');";
+		String sqlstaff = "insert into staff_TBL(id,name,email,pass,"
+							+ "staff_lv) values(?,?,?,?,?);";
+		String sqlmyself = "insert into myself_TBL(name,myself) values(?,'nocontext');";
+		String sqlskill = "insert into skill_TBL(name,skill_name,"
+							+ "skill_lv,skill_appeal) values(?,'nocontext','0','nocontext');";
 		try {
 			//Connect DB
 			connect();
@@ -314,17 +323,31 @@ public class StaffDAO {
 			conn.setAutoCommit(false);
 
 			//Execute SELECT
-			stmt = conn.createStatement();
-
+			pstmta = conn.prepareStatement(sqlstaff);
+			pstmta.setInt(1,id);
+			pstmta.setString(2,name);
+			pstmta.setString(3,email);
+			pstmta.setString(4,pass);
+			pstmta.setInt(5,lv);
+			
+			pstmtb = conn.prepareStatement(sqlmyself);
+			pstmtb.setString(1,name);
+			
+			pstmtc = conn.prepareStatement(sqlskill);
+			pstmtc.setString(1,name);
+			
 			//Execute SQL
-			srt += stmt.executeUpdate(sqlstaff);
+			srt += pstmta.executeUpdate();
 			conn.commit();
-			
-			if(srt == 1) {
-			srt += stmt.executeUpdate(sqlmyself);
-			conn.commit();
+
+			if (srt == 1) {
+				srt += pstmtb.executeUpdate();
+				conn.commit();
 			}
-			
+			if(srt==2) {
+				srt += pstmtc.executeUpdate();
+				conn.commit();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -333,8 +356,12 @@ public class StaffDAO {
 			try {
 				if (rset != null)
 					rset.close();
-				if (stmt != null)
-					stmt.close();
+				if (pstmta != null)
+					pstmta.close();
+				if (pstmtb != null)
+					pstmtb.close();
+				if (pstmtc != null)
+					pstmtc.close();
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
@@ -347,27 +374,27 @@ public class StaffDAO {
 		return srt;
 
 	}
-	
+
 	//管理者ユーザー：社員削除
 	public int deleteStaff(String[] check) {
 		ResultSet rset = null;
 		Statement stmt = null;
-		
+
 		int srt = 0;
 
 		//SQL statement
 		String sql = "delete from staff_tbl where ";
-		for(int i=0; i<check.length; i++) {
-			if(i == 0) {
+		for (int i = 0; i < check.length; i++) {
+			if (i == 0) {
 				sql += "name = '" + check[i] + "'";
-			}else if(i >= 0) {
+			} else if (i >= 0) {
 				sql += "or name = '" + check[i] + "'";
 			}
-			if(i == check.length){
-				sql += ";";	
-			}	
+			if (i == check.length) {
+				sql += ";";
+			}
 		}
-		
+
 		try {
 			//Connect DB
 			connect();
@@ -391,6 +418,171 @@ public class StaffDAO {
 					rset.close();
 				if (stmt != null)
 					stmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		//Disconnect DB
+		disconnect();
+		return srt;
+
+	}
+
+	//管理者ユーザー：社員個人情報
+	public StaffDTO checkStaff(String name) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		StaffDTO sdto = new StaffDTO();
+
+		//SQL statement
+		String sql = "select\n"
+				+ "id,\n"
+				+ "skill_name,\n"
+				+ "skill_lv,\n"
+				+ "skill_appeal,\n"
+				+ "myself\n"
+				+ "from\n"
+				+ "staff_tbl as a\n"
+				+ "join myself_tbl as b on a.name = b.name\n"
+				+ "join skill_tbl as c on a.name = c.name\n"
+				+ "where\n"
+				+ "a.name =?\n";
+
+		//String sql ="select * from staff_tbl where id;";
+
+		try {
+			//Connect DB
+			connect();
+
+			//自動コミットOFF
+			conn.setAutoCommit(false);
+
+			//Execute SELECT
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+
+			//Execute SQL
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				StaffBean sb = new StaffBean();
+				sb.setId(rset.getString("id"));
+				sb.setSkill_name(rset.getString("skill_name"));
+				sb.setSkill_lv(rset.getInt("skill_lv"));
+				sb.setSkill_appeal(rset.getString("skill_appeal"));
+				sb.setMyself(rset.getString("myself"));
+				sdto.add(sb);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (rset != null)
+					rset.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		//Disconnect DB
+		disconnect();
+		return sdto;
+
+	}
+
+	//管理者ユーザー：社員権限の取得
+	public StaffDTO getStlv(String name) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		StaffDTO sdto = new StaffDTO();
+
+		//SQL statement
+		String sql = "select staff_lv from staff_tbl where name= ?";
+
+		try {
+			//Connect DB
+			connect();
+
+			//自動コミットOFF
+			conn.setAutoCommit(false);
+
+			//Execute SELECT
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+
+			//Execute SQL
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+				StaffBean stbe = new StaffBean();
+				stbe.setStaff_lv(rset.getInt("staff_lv"));
+				sdto.add(stbe);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (rset != null)
+					rset.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		//Disconnect DB
+		disconnect();
+		return sdto;
+	}
+
+	//管理者ユーザー：社員権限更新
+	public int updateStaff(String name, int lv) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		int srt = 0; //1が成功、0が
+
+		//SQL statement
+		String sql = "update staff_tbl set staff_lv = ? where name = ?;";
+
+		try {
+			//Connect DB
+			connect();
+
+			//自動コミットOFF
+			conn.setAutoCommit(false);
+
+			//Execute SELECT
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, lv);
+			pstmt.setString(2, name);
+
+			//Execute SQL
+			srt = pstmt.executeUpdate();
+			conn.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (rset != null)
+					rset.close();
+				if (pstmt != null)
+					pstmt.close();
 				if (conn != null)
 					conn.close();
 			} catch (SQLException e) {
