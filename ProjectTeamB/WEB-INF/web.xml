@@ -4738,5 +4738,40 @@
 <url-pattern>/ProjectTeamB/calc</url-pattern>
 </servlet-mapping>
 
+<servlet>
+<servlet-name>CheckListServletMapping</servlet-name>
+<servlet-class>admin_servlet.CheckListServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>CheckListServletMapping</servlet-name>
+<url-pattern>/ProjectTeamB/CheckListServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+	<servlet-name>CmpContactServletMapping</servlet-name>
+	<servlet-class>admin_servlet.CmpContactServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+	<servlet-name>CmpContactServletMapping</servlet-name>
+	<url-pattern>/ProjectTeamB/CmpContactServlet</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>test2Mapping</servlet-name>
+<servlet-class>general_servlet.test</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>test2Mapping</servlet-name>
+<url-pattern>/ProjectTeamB/test2</url-pattern>
+</servlet-mapping>
+
+<servlet>
+<servlet-name>test3Mapping</servlet-name>
+<servlet-class>login_servlet.test</servlet-class>
+</servlet>
+<servlet-mapping>
+<servlet-name>test3Mapping</servlet-name>
+<url-pattern>/ProjectTeamB/test3</url-pattern>
+</servlet-mapping>
 
 </web-app>
