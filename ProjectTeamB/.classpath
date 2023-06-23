@@ -14,6 +14,5 @@
 	<classpathentry kind="var" path="TOMCAT_HOME/lib/annotations-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/pleiades-2023-03-java-win-64bit-jre_20230326/tomcat/9/lib/tomcat-api.jar"/>
 	<classpathentry kind="output" path="WEB-INF/classes"/>
 </classpath>

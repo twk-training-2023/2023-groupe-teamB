@@ -1,6 +1,5 @@
-/admin_servlet/
-/bean/
 /dao/
-/dto/
 /general_servlet/
+/bean/
 /login_servlet/
+/admin_servlet/
