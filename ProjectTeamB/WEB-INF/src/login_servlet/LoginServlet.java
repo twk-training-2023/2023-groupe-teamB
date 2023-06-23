@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
 		
 		//Connect session
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(1);
 		
 		//Get username
 		String username = stdto.get(0).getName();

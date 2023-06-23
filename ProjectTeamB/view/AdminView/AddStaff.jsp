@@ -5,6 +5,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%if(name==null){ %>
+		<meta http-equiv="refresh" content="0;URL=<%= request.getContextPath() %>/view/VersView/Timeout.jsp">
+	<%} %>
 <link rel="stylesheet" href="<%= request.getContextPath() %>/view/Css/Style.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -19,7 +22,7 @@
 	            <li><p><%=name %>さん。</p></li>
                 <li><a href="<%= request.getContextPath() %>/view/LoginView/Menu.jsp">メニュー</a></li>
                 <li><a href="<%= request.getContextPath() %>/view/GeneralView/MyPage.jsp">マイページ</a></li>
-                <%if(staff_lv == 1 ){ %>
+                <%if(staff_lv != null && staff_lv == 1){ %>
                 <li><a href="<%= request.getContextPath() %>/view/AdminView/AdminMenu.jsp">管理者ページ</a></li>
                 <%} %>
                 <li><a href="<%= request.getContextPath() %>/LogoutServlet">ログアウト</a></li>

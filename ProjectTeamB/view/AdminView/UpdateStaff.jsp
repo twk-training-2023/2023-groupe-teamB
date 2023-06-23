@@ -8,6 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <link rel="stylesheet" href="<%= request.getContextPath() %>/view/Css/Style.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>

@@ -28,23 +28,29 @@ public class CmpDelServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
 		HttpSession session = request.getSession();
-		String[] delname = (String[])session.getAttribute("delname");
-		String botton = "社員一覧ページ";
-		String URL = "/ManagerServlet";
-		
-		StaffDAO stdao = new StaffDAO();
-		int del = stdao.deleteStaff(delname);
-		
-		if(del== delname.length) {
-			request.setAttribute("botton",botton);
-			request.setAttribute("URL",URL);
-			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Complete.jsp");
+		String name = (String) session.getAttribute("name");
+		if (name == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");
 			rd.forward(request, response);
-		}else {
-			request.setAttribute("botton",botton);
-			request.setAttribute("URL",URL);
-			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Error.jsp");
-			rd.forward(request, response);
+		} else {
+			String[] delname = (String[]) session.getAttribute("delname");
+			String botton = "社員一覧ページ";
+			String URL = "/ManagerServlet";
+
+			StaffDAO stdao = new StaffDAO();
+			int del = stdao.deleteStaff(delname);
+
+			if (del == delname.length) {
+				request.setAttribute("botton", botton);
+				request.setAttribute("URL", URL);
+				RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Complete.jsp");
+				rd.forward(request, response);
+			} else {
+				request.setAttribute("botton", botton);
+				request.setAttribute("URL", URL);
+				RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Error.jsp");
+				rd.forward(request, response);
+			}
 		}
 	}
 

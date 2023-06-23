@@ -4660,6 +4660,26 @@
 		<url-pattern>/ProjectTeamB/LoginServlet</url-pattern>
 	</servlet-mapping>
 
+	<servlet><!-- ログアウト -->
+		<servlet-name>LogoutServletMapping</servlet-name>
+		<servlet-class>login_servlet.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogoutServletMapping</servlet-name>
+		<url-pattern>/ProjectTeamB/LogoutServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet><!-- 一般ユーザー：自己紹介文更新 -->
+		<servlet-name>ChangeMineServletMapping</servlet-name>
+		<servlet-class>admin_servlet.ChangeMineServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ChangeMineServletMapping</servlet-name>
+		<url-pattern>/ProjectTeamB/ChangeMineServlet</url-pattern>
+	</servlet-mapping>
+
+
+
 
 
 

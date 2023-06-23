@@ -27,41 +27,46 @@ public class ChangePassServlet extends HttpServlet {
 		//Initialization
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
-		
+
 		//Connect session
 		HttpSession session = request.getSession();
-		
+
 		//Get requestdata and username
 		String name = (String) session.getAttribute("name");
-		String pass = request.getParameter("password");
-		//name botton
-		String botton = "マイページへ";
-		//Complete comment
-		String URL =  "/view/GeneralView/MyPage.jsp";
-		
-		//Connect DAO(return flg)
-		StaffDAO stdao = new StaffDAO();
-		int say = stdao.ChngPss(name,pass);
-		
-		//Check SQL process
-		if (say == 1) {
-			
-			//Return data
-			request.setAttribute("botton", botton);
-			request.setAttribute("URL", URL);
-			//forward jsp result
-			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Complete.jsp");
+		if (name == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");
 			rd.forward(request, response);
-			
 		} else {
-			
-			//Return data
-			request.setAttribute("botton", botton);
-			request.setAttribute("URL", URL);
-			//forward jsp result
-			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Error.jsp");
-			rd.forward(request, response);
-			
+			String pass = request.getParameter("password");
+			//name botton
+			String botton = "マイページへ";
+			//Complete comment
+			String URL = "/view/GeneralView/MyPage.jsp";
+
+			//Connect DAO(return flg)
+			StaffDAO stdao = new StaffDAO();
+			int say = stdao.ChngPss(name, pass);
+
+			//Check SQL process
+			if (say == 1) {
+
+				//Return data
+				request.setAttribute("botton", botton);
+				request.setAttribute("URL", URL);
+				//forward jsp result
+				RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Complete.jsp");
+				rd.forward(request, response);
+
+			} else {
+
+				//Return data
+				request.setAttribute("botton", botton);
+				request.setAttribute("URL", URL);
+				//forward jsp result
+				RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Error.jsp");
+				rd.forward(request, response);
+
+			}
 		}
 	}
 

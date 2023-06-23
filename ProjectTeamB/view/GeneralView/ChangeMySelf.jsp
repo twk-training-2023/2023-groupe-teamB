@@ -59,8 +59,8 @@
 	<div style="text-align:center;">
 		<form method="post" name=form3 action="<%=request.getContextPath()%>/ChangeSkillServlet">
 			<p>新しいアピール文を入力してください</p>
-			<input type="text" id = "textboxap" name="skill_appeal" size="100" value="<%= stbe.getSkill_appeal()%>"  required/>
-			<script type="text/javascript">
+			<input type="text" id = "textboxap" name="skill_appeal" size="100" placeholder="<%= stbe.getSkill_appeal()%>"  required/>
+			<!-- <script type="text/javascript">
 				<!--
 				  var textboxap = document.getElementById( 'textboxap' );
 				
@@ -87,12 +87,12 @@
 				  // 透かし文字をdefaultValueプロパティで保持する
 				  textboxap.defaultValue = textboxap.value;
 				  textboxap.value = '';
-			</script>
+			</script>-->
 			<input type="submit" value="更新"><br/>
 			
 			<p>スキル名とスキルレベルを入力してください</p>
-			<input type="text" id = "textboxnm" name="skill_name" size="50" value="<%= stbe.getSkill_name()%>"  required/>
-						<script type="text/javascript">
+			<input type="text" id = "textboxnm" name="skill_name" size="50" placeholder="<%= stbe.getSkill_name()%>"  required/>
+						<!--<script type="text/javascript">
 				<!--
 				  var textboxnm = document.getElementById( 'textboxnm' );
 				
@@ -119,7 +119,7 @@
 				  // 透かし文字をdefaultValueプロパティで保持する
 				  textboxnm.defaultValue = textboxnm.value;
 				  textboxnm.value = '';
-			</script>
+			</script>-->
 			<span>&nbsp;&nbsp;&nbsp;</span>
 			<select name="skill_lv" >
 			<p>スキルレベルを選んでください</p>

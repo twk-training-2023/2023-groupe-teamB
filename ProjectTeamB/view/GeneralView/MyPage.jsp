@@ -1,20 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%
-String name = (String) session.getAttribute("name");
-%>
-<%
-Integer staff_lv = (Integer) session.getAttribute("staff_lv");
-%>
+<%String name = (String) session.getAttribute("name");%>
+<%Integer staff_lv = (Integer) session.getAttribute("staff_lv");%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/view/Css/Style.css">
-<meta charset="UTF-8">
-<title>マイページ</title>
+	<%if(name==null){ %>
+		<meta http-equiv="refresh" content="0;URL=<%= request.getContextPath() %>/view/VersView/Timeout.jsp">
+	<%} %>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/view/Css/Style.css">
+	<meta charset="UTF-8">
+	<title>マイページ</title>
 </head>
 <body>
 	<header>
@@ -30,7 +28,7 @@ Integer staff_lv = (Integer) session.getAttribute("staff_lv");
 					<li><a
 						href="<%=request.getContextPath()%>/view/GeneralView/MyPage.jsp">マイページ</a></li>
 					<%
-					if (staff_lv == 1) {
+					if (staff_lv != null && staff_lv == 1) {
 					%>
 					<li><a
 						href="<%=request.getContextPath()%>/view/AdminView/AdminMenu.jsp">管理者ページ</a></li>

@@ -30,10 +30,7 @@ public class ChangeMySelfServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 
 		//Connect session
-		HttpSession session = request.getSession();
-		
-		//Get username
-		String name = (String) session.getAttribute("name");
+		HttpSession session = request.getSession();String name = (String) session.getAttribute("name");if(name == null) {RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");rd.forward(request, response);}else {
 
 		//Connect DAO(check user)
 		StaffDAO stdao = new StaffDAO();
@@ -45,6 +42,7 @@ public class ChangeMySelfServlet extends HttpServlet {
 		//Forward jsp result
 		RequestDispatcher rd = request.getRequestDispatcher("/view/GeneralView/ChangeMySelf.jsp");
 		rd.forward(request, response);
+		}
 
 	}
 
