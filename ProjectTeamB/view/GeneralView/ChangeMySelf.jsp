@@ -21,9 +21,9 @@
 	
 	
 	<div style="text-align: center;">	
-		<form method="post" name=form1 action="<%=request.getContextPath()%>/ChangePassServlet" required/>
+		<form method="post" name=form1 action="<%=request.getContextPath()%>/ChangePassServlet">
 			<p>新しいパスワードを入力してください</p>
-			<input type="password" id= "textbox" name="password" size="50" placeholder="numnumnumnumnum">
+			<input type="password" id= "textbox" name="password" size="50" placeholder="numnumnumnumnum"  required/>
 			<input type="submit" value="変更">
 		</form>
 	</div>
@@ -32,7 +32,7 @@
 	<div style="text-align: center;">
 		<form method="post" name=form2 action="<%=request.getContextPath()%>/ChangeMineServlet">
 			<p>新しい自己紹介文を入力してください</p>
-			<input type="text" id= "textboxmy" name="myself" size="50" placeholder="hogehogehoge">
+			<input type="text" id= "textboxmy" name="myself" size="50" placeholder="hogehogehoge" required/>
 			<input type="submit" value="更新">
 		</form>
 	</div>
@@ -41,7 +41,7 @@
 	<div style="text-align:center;">
 		<form method="post" name=form3 action="<%=request.getContextPath()%>/ChangeSkillServlet">
 			<p>新しいアピール文を入力してください</p>
-			<input type="text" id = "textboxap" name="skill_appeal" size="100" value="<%= stbe.getSkill_appeal()%>" />
+			<input type="text" id = "textboxap" name="skill_appeal" size="100" value="<%= stbe.getSkill_appeal()%>"  required/>
 			<script type="text/javascript">
 				<!--
 				  var textboxap = document.getElementById( 'textboxap' );
@@ -73,7 +73,7 @@
 			<input type="submit" value="更新"><br/>
 			
 			<p>スキル名とスキルレベルを入力してください</p>
-			<input type="text" id = "textboxnm" name="skill_name" size="50" value="<%= stbe.getSkill_name()%>" />
+			<input type="text" id = "textboxnm" name="skill_name" size="50" value="<%= stbe.getSkill_name()%>"  required/>
 						<script type="text/javascript">
 				<!--
 				  var textboxnm = document.getElementById( 'textboxnm' );
@@ -118,7 +118,7 @@
 			</select>
 			<br/>
 			
-			1
+			
 			
 			
 			
