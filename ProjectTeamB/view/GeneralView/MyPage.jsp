@@ -31,6 +31,11 @@
 			<input type="submit" value="押す">
 		</form>
 		<br>
+		<form method="get" name=form1 action="<%= request.getContextPath() %>/SelfINFServlet">
+			<p style="display: inline">個人情報確認画面</p>
+			<input type="submit" value="押す">
+		</form>
+		<br>
 		<form action="<%= request.getContextPath() %>/view/LoginView/Menu.jsp">
 			<p style="display: inline">プラットフォーム</p>
 			<input type="submit" value="押す">

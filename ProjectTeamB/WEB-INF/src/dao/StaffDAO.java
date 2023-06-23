@@ -311,10 +311,10 @@ public class StaffDAO {
 		int id = r.nextInt(10000);
 		//SQL statement
 		String sqlstaff = "insert into staff_TBL(id,name,email,pass,"
-							+ "staff_lv) values(?,?,?,?,?);";
+				+ "staff_lv) values(?,?,?,?,?);";
 		String sqlmyself = "insert into myself_TBL(name,myself) values(?,'nocontext');";
 		String sqlskill = "insert into skill_TBL(name,skill_name,"
-							+ "skill_lv,skill_appeal) values(?,'nocontext','0','nocontext');";
+				+ "skill_lv,skill_appeal) values(?,'nocontext','0','nocontext');";
 		try {
 			//Connect DB
 			connect();
@@ -324,18 +324,18 @@ public class StaffDAO {
 
 			//Execute SELECT
 			pstmta = conn.prepareStatement(sqlstaff);
-			pstmta.setInt(1,id);
-			pstmta.setString(2,name);
-			pstmta.setString(3,email);
-			pstmta.setString(4,pass);
-			pstmta.setInt(5,lv);
-			
+			pstmta.setInt(1, id);
+			pstmta.setString(2, name);
+			pstmta.setString(3, email);
+			pstmta.setString(4, pass);
+			pstmta.setInt(5, lv);
+
 			pstmtb = conn.prepareStatement(sqlmyself);
-			pstmtb.setString(1,name);
-			
+			pstmtb.setString(1, name);
+
 			pstmtc = conn.prepareStatement(sqlskill);
-			pstmtc.setString(1,name);
-			
+			pstmtc.setString(1, name);
+
 			//Execute SQL
 			srt += pstmta.executeUpdate();
 			conn.commit();
@@ -344,7 +344,7 @@ public class StaffDAO {
 				srt += pstmtb.executeUpdate();
 				conn.commit();
 			}
-			if(srt==2) {
+			if (srt == 2) {
 				srt += pstmtc.executeUpdate();
 				conn.commit();
 			}
@@ -593,6 +593,82 @@ public class StaffDAO {
 		//Disconnect DB
 		disconnect();
 		return srt;
+
+	}
+
+	public StaffDTO selfINF(String name) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		StaffDTO sdto = new StaffDTO();
+
+		//SQL statement
+		String sql = "select\n"
+				+ "id,\n"
+				+ "skill_name,\n"
+				+ "skill_lv,\n"
+				+ "skill_appeal,\n"
+				+ "status,\n"
+				+ "myself\n"
+				+ "from\n"
+				+ "staff_tbl as a\n"
+				+ "join myself_tbl as b on a.name = b.name\n"
+				+ "join skill_tbl as c on a.name = c.name\n"
+				+ "where\n"
+				+ "a.name =?\n";
+
+		//String sql ="select * from staff_tbl where id;";
+
+		try {
+			//Connect DB
+			connect();
+
+			//自動コミットOFF
+			conn.setAutoCommit(false);
+
+			//Execute SELECT
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+
+			//Execute SQL
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				StaffBean sb = new StaffBean();
+				int status = rset.getInt("status");
+				sb.setId(rset.getString("id"));
+				sb.setSkill_name(rset.getString("skill_name"));
+				sb.setSkill_lv(rset.getInt("skill_lv"));
+				sb.setSkill_appeal(rset.getString("skill_appeal"));
+				if(status==1) {
+					sb.setStatus("申請中");
+				}else if(status==0) {
+					sb.setStatus("否認");
+				}else if(status==2) {
+					sb.setStatus("承認");
+				}
+				sb.setMyself(rset.getString("myself"));
+				sdto.add(sb);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (rset != null)
+					rset.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		//Disconnect DB
+		disconnect();
+		return sdto;
 
 	}
 
