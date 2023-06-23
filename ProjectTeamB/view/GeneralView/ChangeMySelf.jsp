@@ -21,7 +21,7 @@
 	
 	
 	<div style="text-align: center;">	
-		<form method="post" name=form1 action="<%=request.getContextPath()%>/ChangePassServlet">
+		<form method="post" name=form1 action="<%=request.getContextPath()%>/ChangePassServlet" required/>
 			<p>新しいパスワードを入力してください</p>
 			<input type="password" id= "textbox" name="password" size="50" placeholder="numnumnumnumnum">
 			<input type="submit" value="変更">
