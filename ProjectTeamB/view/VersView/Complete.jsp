@@ -12,8 +12,8 @@
 	<div style="text-align:center;">
 		<header>
 			<h6>送信完了</h6>
-		</header>	
-		
+		</header>
+		<meta http-equiv="refresh" content="1;URL=<%= request.getContextPath() %>${requestScope.URL}">
 		<form action="<%= request.getContextPath() %>${requestScope.URL}">
             <input type="submit"value="${requestScope.botton}">
         </form>

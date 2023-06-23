@@ -3,19 +3,37 @@
 	<%@page import="bean.*"%>
 <jsp:useBean id="stdto" scope="request" class="dto.StaffDTO" />
 <%String name = (String)session.getAttribute("name") ;%>
+<%Integer staff_lv = (Integer)session.getAttribute("staff_lv") ;%>
 <%StaffBean stbe = stdto.get(0);%>
 
 
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/view/Css/Style.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
+<header>
+    <div class="hamburger-menu">
+        <input type="checkbox" id="menu-btn-check">
+        <label for="menu-btn-check" class="menu-btn"><span></span></label>
+        <div class="menu-content">
+            <ul>
+	            <li><p><%=name %>さん。</p></li>
+                <li><a href="<%= request.getContextPath() %>/view/LoginView/Menu.jsp">メニュー</a></li>
+                <li><a href="<%= request.getContextPath() %>/view/GeneralView/MyPage.jsp">マイページ</a></li>
+                <%if(staff_lv == 1 ){ %>
+                <li><a href="<%= request.getContextPath() %>/view/AdminView/AdminMenu.jsp">管理者ページ</a></li>
+                <%} %>
+                <li><a href="<%= request.getContextPath() %>/LogoutServlet">ログアウト</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+	<br><br><br>
 	<div style="text-align: center;">
-		<p style="text-align: right;"><%=name %>さん。</p>
-		<br>
 		<h1>個人情報更新</h1>
 	</div>
 	
@@ -105,8 +123,8 @@
 			<span>&nbsp;&nbsp;&nbsp;</span>
 			<select name="skill_lv" >
 			<p>スキルレベルを選んでください</p>
-			  <option value="0,name">Lv0</option>
-			  <option value="1,name">Lv1</option>
+			  <option value="0">Lv0</option>
+			  <option value="1">Lv1</option>
 			  <option value="2">Lv2</option>
 			  <option value="3">Lv3</option>
 			  <option value="4">Lv4</option>

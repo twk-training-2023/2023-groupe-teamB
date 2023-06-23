@@ -12,6 +12,7 @@ public class StaffBean implements Serializable {
 	private Integer skill_lv;
 	private String skill_appeal;
 	private String myself;
+	private String status;
 	
 	public void setId(String id) { this.id = id;}
 	public void setName(String name) { this.name = name;}
@@ -22,6 +23,7 @@ public class StaffBean implements Serializable {
 	public void setSkill_lv(Integer skill_lv) { this.skill_lv = skill_lv;}
 	public void setSkill_appeal(String skill_appeal) { this.skill_appeal = skill_appeal;}
 	public void setMyself(String myself) { this.myself = myself;}
+	public void setStatus(String status) {this.status = status;}
 	
 	
 	public String getId() { return id;}
@@ -33,5 +35,6 @@ public class StaffBean implements Serializable {
 	public Integer getSkill_lv() { return skill_lv;}
 	public String getSkill_appeal() { return skill_appeal;}
 	public String getMyself() { return myself;}
+	public String getStatus() {return status;}
 	
 }

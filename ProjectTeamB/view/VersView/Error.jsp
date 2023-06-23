@@ -13,7 +13,7 @@
 		<header>
 			<h6>エラー</h6>
 		</header>	
-		
+		 <meta http-equiv="refresh" content="1;URL=<%= request.getContextPath() %>${requestScope.URL}">
 		<form action="<%= request.getContextPath() %>${requestScope.URL}">
             <input type="submit"value="${requestScope.botton}">
         </form>

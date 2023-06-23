@@ -188,7 +188,7 @@ public class StaffDAO {
 
 	}
 
-	//一般ユーザー：社員情報の更新画面のグレー文字出力
+	//一般ユーザー：社員情報の更新
 	public StaffDTO ChngMySlf(String name) {
 		ResultSet rset = null;
 		PreparedStatement pstmt = null;
@@ -250,6 +250,83 @@ public class StaffDAO {
 
 	}
 
+	//一般ユーザー：社員個人情報
+	public StaffDTO selfINF(String name) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		StaffDTO sdto = new StaffDTO();
+
+		//SQL statement
+		String sql = "select\n"
+				+ "id,\n"
+				+ "skill_name,\n"
+				+ "skill_lv,\n"
+				+ "skill_appeal,\n"
+				+ "status,\n"
+				+ "myself\n"
+				+ "from\n"
+				+ "staff_tbl as a\n"
+				+ "join myself_tbl as b on a.name = b.name\n"
+				+ "join skill_tbl as c on a.name = c.name\n"
+				+ "where\n"
+				+ "a.name =?\n";
+
+		//String sql ="select * from staff_tbl where id;";
+
+		try {
+			//Connect DB
+			connect();
+
+			//自動コミットOFF
+			conn.setAutoCommit(false);
+
+			//Execute SELECT
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+
+			//Execute SQL
+			rset = pstmt.executeQuery();
+			
+			while (rset.next()) {
+				StaffBean sb = new StaffBean();
+				int status = rset.getInt("status");
+				sb.setId(rset.getString("id"));
+				sb.setSkill_name(rset.getString("skill_name"));
+				sb.setSkill_lv(rset.getInt("skill_lv"));
+				sb.setSkill_appeal(rset.getString("skill_appeal"));
+				if(status==1) {
+					sb.setStatus("申請中");
+				}else if(status==0) {
+					sb.setStatus("否認");
+				}else if(status==2) {
+					sb.setStatus("承認");
+				}
+				sb.setMyself(rset.getString("myself"));
+				sdto.add(sb);
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		} finally {
+			try {
+				if (rset != null)
+					rset.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+		}
+		//Disconnect DB
+		disconnect();
+		return sdto;
+
+	}
+	
 	//管理者ユーザー：社員一覧/削除
 	public StaffDTO allStaff() {
 		ResultSet rset = null;
