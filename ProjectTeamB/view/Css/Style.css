@@ -8,7 +8,7 @@
     justify-content: center;
     align-items: center;
     z-index: 90;
-    background-color: #3584bb;
+    background-color: plum;
 }
 .menu-btn span,
 .menu-btn span:before,
@@ -85,7 +85,7 @@
     top: 0;
     left: 100%;/*leftの値を変更してメニューを画面外へ*/
     z-index: 80;
-    background-color: #3584bb;
+    background-color: violet;
     transition: all 0.5s;/*アニメーション設定*/
 }
 #menu-btn-check:checked ~ .menu-content {
