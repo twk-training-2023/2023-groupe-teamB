@@ -39,7 +39,7 @@ public class MyselfDAO {
 	
 	/*---------------------処理群--------------------*/
 	
-	//一般ユーザー：パスワードの変更
+	//一般ユーザー：自己紹介文の変更
 	public int ChngMn(String name, String myself) {
 		ResultSet rset = null;
 		Statement stmt = null;

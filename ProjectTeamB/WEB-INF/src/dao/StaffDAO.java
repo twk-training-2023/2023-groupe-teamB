@@ -34,6 +34,7 @@ public class StaffDAO {
 		try {
 			Class.forName("org.postgresql.Driver");
 			con = DriverManager.getConnection(urL, useR, passWord);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,7 +139,6 @@ public class StaffDAO {
 
 	//一般ユーザー：パスワードの変更
 	public int ChngPss(String name, String pass) {
-		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 
 		//SQL statement
@@ -159,20 +159,20 @@ public class StaffDAO {
 
 			//Execute SELECT
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setString(2, pass);
+			pstmt.setString(1, pass);
+			pstmt.setString(2, name);
 
 			//Execute SQL
 			say = pstmt.executeUpdate();
+			if(say==1) {
 			conn.commit();
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
 
 		} finally {
 			try {
-				if (rset != null)
-					rset.close();
 				if (pstmt != null)
 					pstmt.close();
 				if (conn != null)
@@ -378,7 +378,6 @@ public class StaffDAO {
 
 	//管理者ユーザー：社員追加
 	public int addStaff(String name, String email, String pass, int lv) {
-		ResultSet rset = null;
 		PreparedStatement pstmta = null;
 		PreparedStatement pstmtb = null;
 		PreparedStatement pstmtc = null;
@@ -431,8 +430,6 @@ public class StaffDAO {
 
 		} finally {
 			try {
-				if (rset != null)
-					rset.close();
 				if (pstmta != null)
 					pstmta.close();
 				if (pstmtb != null)
@@ -456,7 +453,6 @@ public class StaffDAO {
 	public int deleteStaff(String[] check) {
 		ResultSet rset = null;
 		Statement stmt = null;
-
 		int srt = 0;
 
 		//SQL statement
@@ -464,14 +460,14 @@ public class StaffDAO {
 		for (int i = 0; i < check.length; i++) {
 			if (i == 0) {
 				sql += "name = '" + check[i] + "'";
-			} else if (i >= 0) {
+			} else if (i >=0) {
 				sql += "or name = '" + check[i] + "'";
 			}
-			if (i == check.length) {
+			if (i == (check.length)-1) {
 				sql += ";";
 			}
 		}
-
+		
 		try {
 			//Connect DB
 			connect();
@@ -481,7 +477,6 @@ public class StaffDAO {
 
 			//Execute SELECT
 			stmt = conn.createStatement();
-
 			//Execute SQL
 			srt = stmt.executeUpdate(sql);
 			conn.commit();

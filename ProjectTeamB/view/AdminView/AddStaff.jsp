@@ -34,7 +34,7 @@
 	<div style="text-align: center;">
 		<h1>社員追加</h1>
 		<h3>単体用</h3>
-		<form method=get name=form1 action="<%= request.getContextPath() %>/CmpAddServlet">
+		<form method="get" name="form1" action="<%= request.getContextPath() %>/CmpAddServlet">
 			<p>
 				ユーザー名:&nbsp;&nbsp;&nbsp;<input type="text" name="name" size="50" required>
 			</p>
@@ -59,7 +59,7 @@
 		</form>
 		<p>---------------------------------------------------------------------------------------</p>
 		<h3>複数用</h3>
-		<form method=post name=form1
+		<form method="post" name="form1"
 			action="<%=request.getContextPath()%>/CmpAddServlet">
 		<p>ファイルの絶対パスを入力してください</p>
 		
@@ -68,6 +68,16 @@
 			<input type="submit" value="追加">
 		</p>
 		</form>
+		<br/>
+		<form method="post" name="form1"
+			action="<%=request.getContextPath()%>/CmpFileServlet">
+		<p>ファイルを指定してください</p>
+		<input type="file" name="file" accept=".csv">
+		<p>
+		<input type="submit" value="追加">
+		</p>
+		</form>
+		
 		<p>---------------------------------------------------------------------------------------</p>
 		<form method="get" name="form4" action="<%= request.getContextPath() %>/ManagerServlet">
 			<p style="display: inline">社員一覧に戻る</p>

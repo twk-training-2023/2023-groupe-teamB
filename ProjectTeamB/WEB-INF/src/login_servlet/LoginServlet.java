@@ -22,24 +22,23 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	//Check eamil,pass→Get username
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
 		
+		
 		//Get requestdata
 		String email = request.getParameter("email");
 		String pass = request.getParameter("password");
-
 		//Connect DAO(return name,staff_lv)
 		StaffDAO stdao = new StaffDAO();
 		StaffDTO stdto= stdao.select(email,pass);
-		
 		//Connect session
 		HttpSession session = request.getSession();
-		session.setMaxInactiveInterval(1);
+		session.setMaxInactiveInterval(300);
 		
 		//Get username
 		String username = stdto.get(0).getName();
@@ -68,11 +67,6 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/view/LoginView/Menu.jsp");
 			rd.forward(request, response);
 		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }
