@@ -69,15 +69,6 @@
 		</p>
 		</form>
 		<br/>
-		<form method="post" name="form1"
-			action="<%=request.getContextPath()%>/CmpFileServlet">
-		<p>ファイルを指定してください</p>
-		<input type="file" name="file" accept=".csv">
-		<p>
-		<input type="submit" value="追加">
-		</p>
-		</form>
-		
 		<p>---------------------------------------------------------------------------------------</p>
 		<form method="get" name="form4" action="<%= request.getContextPath() %>/ManagerServlet">
 			<p style="display: inline">社員一覧に戻る</p>

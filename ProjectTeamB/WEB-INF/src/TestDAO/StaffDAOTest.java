@@ -136,15 +136,15 @@ public class StaffDAOTest {
 		StaffBean stbe = new StaffBean();
 
 		//実行結果
-		String username = "鈴木恵美";
+		String username = "佐藤一郎";
 		StaffDTO dtore = stf.ChngMySlf(username);
 		StaffBean bere = dtore.get(0);
 
 		//予測結果
-		stbe.setMyself("");
+		stbe.setMyself("前職は消防士です。よろしくお願いいたします。");
 		stbe.setSkill_name("java");
 		stbe.setSkill_lv(8);
-		stbe.setSkill_appeal("前職は総理大臣です。対戦ありがとうございました。");
+		stbe.setSkill_appeal("Javaプログラミング能力認定試験1級、Oracle認定Javaプログラマ:ゴールド");
 
 		//テスト
 		assertThat(stbe.getMyself(), is(bere.getMyself()));

@@ -22,7 +22,7 @@ public class ChangeMySelfServlet extends HttpServlet {
 	}
 
 	//Get user information
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -30,25 +30,27 @@ public class ChangeMySelfServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 
 		//Connect session
-		HttpSession session = request.getSession();String name = (String) session.getAttribute("name");if(name == null) {RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");rd.forward(request, response);}else {
+		HttpSession session = request.getSession();
+		String name = (String) session.getAttribute("name");
+		if (name == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");
+			rd.forward(request, response);
+		} else {
 
-		//Connect DAO(check user)
-		StaffDAO stdao = new StaffDAO();
-		StaffDTO stdto = stdao.ChngMySlf(name);
+			//Connect DAO(check user)
+			StaffDAO stdao = new StaffDAO();
+			StaffDTO stdto = stdao.ChngMySlf(name);
 
-		//Return data
-		request.setAttribute("stdto", stdto);
+			//Return data
+			request.setAttribute("stdto", stdto);
 
-		//Forward jsp result
-		RequestDispatcher rd = request.getRequestDispatcher("/view/GeneralView/ChangeMySelf.jsp");
-		rd.forward(request, response);
+			//Forward jsp result
+			RequestDispatcher rd = request.getRequestDispatcher("/view/GeneralView/ChangeMySelf.jsp");
+			rd.forward(request, response);
 		}
 
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
+
 
 }

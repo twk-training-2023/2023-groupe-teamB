@@ -3,6 +3,9 @@ package TestServlet;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
 
+import java.io.IOException;
+
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Test;
@@ -16,7 +19,7 @@ public class LoginServletTest {
 
 	@Test
 	@DisplayName("ログイン")
-	public void ChngMn() {
+	public void ChngMn() throws ServletException, IOException {
 		LoginServlet logser = new LoginServlet();
 		MockHttpServletRequest req = new MockHttpServletRequest();
 		MockHttpServletResponse resp = new MockHttpServletResponse();
@@ -25,20 +28,17 @@ public class LoginServletTest {
 		String password = "abc";
 		req.setParameter("email", email);
 		req.setParameter("password", password);
-		try {
-			logser.doGet(req, resp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-			HttpSession session = req.getSession();
-			assertThat(1,is(session.getAttribute("staff_lv")));
-			assertThat("鈴木恵美",is(session.getAttribute("name")));			
-			assertThat("/view/LoginView/Menu.jsp",is(resp.getForwardedUrl()));		
+		logser.doGet(req, resp);
+
+		HttpSession session = req.getSession();
+		assertThat(1, is(session.getAttribute("staff_lv")));
+		assertThat("鈴木恵美", is(session.getAttribute("name")));
+		assertThat("/view/LoginView/Menu.jsp", is(resp.getForwardedUrl()));
 	}
-	
+
 	@Test
 	@DisplayName("ログイン失敗")
-	public void NoChngMn() {
+	public void NoChngMn() throws ServletException, IOException {
 		LoginServlet logser = new LoginServlet();
 		MockHttpServletRequest req = new MockHttpServletRequest();
 		MockHttpServletResponse resp = new MockHttpServletResponse();
@@ -47,14 +47,11 @@ public class LoginServletTest {
 		String password = "bbc";
 		req.setParameter("email", email);
 		req.setParameter("password", password);
-		try {
-			logser.doGet(req, resp);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-			assertThat("/view/LoginView/Login.jsp",is(req.getAttribute("error")));
-			assertThat("メールアドレス ： あまたはパスワードでエラーが起きています。",is(req.getAttribute("nouser")));			
-			assertThat("/view/LoginView/LoginError.jsp",is(resp.getForwardedUrl()));
-			
+		logser.doGet(req, resp);
+
+		assertThat("/view/LoginView/Login.jsp", is(req.getAttribute("error")));
+		assertThat("メールアドレス ： あまたはパスワードでエラーが起きています。", is(req.getAttribute("nouser")));
+		assertThat("/view/LoginView/LoginError.jsp", is(resp.getForwardedUrl()));
+
 	}
 }
