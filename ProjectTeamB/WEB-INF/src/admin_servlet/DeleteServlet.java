@@ -22,7 +22,7 @@ public class DeleteServlet extends HttpServlet {
 	}
 
 	//Compare names→Get_name&Get_pass
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -44,8 +44,4 @@ public class DeleteServlet extends HttpServlet {
 		}
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
-	}
 }

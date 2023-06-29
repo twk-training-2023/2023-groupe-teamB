@@ -22,7 +22,7 @@ public class SkillServlet extends HttpServlet {
 	}
 
 	//Add new staff information
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -43,10 +43,5 @@ public class SkillServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/view/AdminView/CheckSkill.jsp");
 			rd.forward(request, response);
 		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 }

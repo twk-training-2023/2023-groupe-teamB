@@ -24,7 +24,7 @@ public class CmpContactServlet extends HttpServlet {
 	}
 
 	//Add a new message from staff
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization

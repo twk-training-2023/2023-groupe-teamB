@@ -43,7 +43,6 @@ public class SkillDAO {
 
 	//一般ユーザー：スキルレベル等の更新
 	public int ChngMn(String name, String skill_name, Integer skill_lv, String skill_appeal) {
-		ResultSet rset = null;
 		Statement stmt = null;
 
 		//SQL statement
@@ -78,8 +77,6 @@ public class SkillDAO {
 
 		} finally {
 			try {
-				if (rset != null)
-					rset.close();
 				if (stmt != null)
 					stmt.close();
 				if (conn != null)
@@ -149,7 +146,6 @@ public class SkillDAO {
 	
 	//管理者ユーザー：社員申請承認
 	public int StatusOK(String[] name) {
-		ResultSet rset = null;
 		Statement stmt = null;
 		int srt = 0;
 
@@ -161,7 +157,7 @@ public class SkillDAO {
 			}else if(i >= 0) {
 				sql += "or name = '" + name[i] + "'";
 			}
-			if(i == name.length){
+			if(i == (name.length)-1){
 				sql += ";";	
 			}	
 		}
@@ -184,8 +180,7 @@ public class SkillDAO {
 
 		} finally {
 			try {
-				if (rset != null)
-					rset.close();
+				
 				if (stmt != null)
 					stmt.close();
 				if (conn != null)
@@ -203,7 +198,6 @@ public class SkillDAO {
 	
 	//管理者ユーザー：社員申請否認
 	public int StatusOUT(String[] name) {
-		ResultSet rset = null;
 		Statement stmt = null;
 		int srt = 0;
 
@@ -212,10 +206,10 @@ public class SkillDAO {
 		for(int i=0; i<name.length; i++) {
 			if(i == 0) {
 				sql += "name = '" + name[i] + "'";
-			}else if(i >= 0) {
+			}else if(i > 0) {
 				sql += "or name = '" + name[i] + "'";
 			}
-			if(i == name.length){
+			if(i == (name.length)-1){
 				sql += ";";	
 			}	
 		}
@@ -238,8 +232,6 @@ public class SkillDAO {
 
 		} finally {
 			try {
-				if (rset != null)
-					rset.close();
 				if (stmt != null)
 					stmt.close();
 				if (conn != null)

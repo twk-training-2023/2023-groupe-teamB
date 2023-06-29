@@ -21,7 +21,7 @@ public class ChangeMineServlet extends HttpServlet {
 	}
 
 	//Update new myself
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -69,9 +69,5 @@ public class ChangeMineServlet extends HttpServlet {
 		}
 	}
 
-	protected void doget(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
 
 }

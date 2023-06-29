@@ -22,7 +22,7 @@ public class ChangeMySelfServlet extends HttpServlet {
 	}
 
 	//Get user information
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -44,11 +44,6 @@ public class ChangeMySelfServlet extends HttpServlet {
 		rd.forward(request, response);
 		}
 
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

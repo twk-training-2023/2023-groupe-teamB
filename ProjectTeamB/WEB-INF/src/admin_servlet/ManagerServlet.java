@@ -22,7 +22,7 @@ public class ManagerServlet extends HttpServlet {
 	}
 
 	//Get  all staff information
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -45,10 +45,5 @@ public class ManagerServlet extends HttpServlet {
 			rd.forward(request, response);
 		}
 
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 }

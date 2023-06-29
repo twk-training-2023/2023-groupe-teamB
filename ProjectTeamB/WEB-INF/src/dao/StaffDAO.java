@@ -138,7 +138,6 @@ public class StaffDAO {
 
 	//一般ユーザー：パスワードの変更
 	public int ChngPss(String name, String pass) {
-		ResultSet rset = null;
 		PreparedStatement pstmt = null;
 
 		//SQL statement
@@ -159,8 +158,8 @@ public class StaffDAO {
 
 			//Execute SELECT
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setString(2, pass);
+			pstmt.setString(1, pass);
+			pstmt.setString(2, name);
 
 			//Execute SQL
 			say = pstmt.executeUpdate();
@@ -171,8 +170,6 @@ public class StaffDAO {
 
 		} finally {
 			try {
-				if (rset != null)
-					rset.close();
 				if (pstmt != null)
 					pstmt.close();
 				if (conn != null)

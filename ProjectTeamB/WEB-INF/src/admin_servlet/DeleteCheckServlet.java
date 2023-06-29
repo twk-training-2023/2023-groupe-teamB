@@ -19,7 +19,7 @@ public class DeleteCheckServlet extends HttpServlet {
 	}
 
 	//Compare names→Get_name&Get_pass
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -38,10 +38,5 @@ public class DeleteCheckServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/view/AdminView/CheckDelete.jsp");
 			rd.forward(request, response);
 		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 }

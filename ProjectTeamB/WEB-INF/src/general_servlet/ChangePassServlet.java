@@ -21,7 +21,7 @@ public class ChangePassServlet extends HttpServlet {
 	}
 
 	//update New Password
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -69,10 +69,4 @@ public class ChangePassServlet extends HttpServlet {
 			}
 		}
 	}
-
-	protected void doget(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
-
 }
