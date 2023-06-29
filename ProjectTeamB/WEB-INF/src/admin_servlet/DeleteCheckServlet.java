@@ -19,23 +19,24 @@ public class DeleteCheckServlet extends HttpServlet {
 	}
 
 	//Compare names→Get_name&Get_pass
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
-		String[] name = request.getParameterValues("name");
-		HttpSession session = request.getSession();
-		session.setAttribute("delname", name);
-		//System.out.println(name[0]);
-		
-		RequestDispatcher rd = request.getRequestDispatcher("/view/AdminView/CheckDelete.jsp");
-		rd.forward(request, response);
-	}
+			String[] nam = request.getParameterValues("name");
+			HttpSession session = request.getSession();
+			String name = (String) session.getAttribute("name");
+			if (name == null) {
+				RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");
+				rd.forward(request, response);
+			} else {
+			session.setAttribute("delname", nam);
+			//System.out.println(name[0]);
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
+			RequestDispatcher rd = request.getRequestDispatcher("/view/AdminView/CheckDelete.jsp");
+			rd.forward(request, response);
+		}
 	}
 }

@@ -3,18 +3,20 @@ package dto;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import bean.MySelfBean;
+
 public class MyselfDTO implements Serializable {
-	private ArrayList<MyselfBean> list;
+	private ArrayList<MySelfBean> list;
 
 	public MyselfDTO() {
-		list = new ArrayList<MyselfBean>();
+		list = new ArrayList<MySelfBean>();
 	}
 
-	public void add(MyselfBean mybe) {
+	public void add(MySelfBean mybe) {
 		list.add(mybe);
 	}
 
-	public MyselfBean get(int i) {
+	public MySelfBean get(int i) {
 		return list.get(i);
 	}
 

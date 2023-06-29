@@ -24,12 +24,16 @@ public class SelfINFServlet extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
 		//セッションからログインした名前を取得
 		HttpSession session = request.getSession();
 		String name = (String)session.getAttribute("name");
+		if(name == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");
+	        rd.forward(request, response);
+		}else {
 		//利用するDAOのインスタンス生成
 		StaffDAO dao = new StaffDAO();
 		//引数を渡してメソッド実行
@@ -39,6 +43,7 @@ public class SelfINFServlet extends HttpServlet {
         request.setAttribute("name", name);
 		//送信完了画面に遷移
         RequestDispatcher rd = request.getRequestDispatcher("/view/GeneralView/SelfINF.jsp");
-        rd.forward(request, response);		
+        rd.forward(request, response);
+		}
 	}
 }

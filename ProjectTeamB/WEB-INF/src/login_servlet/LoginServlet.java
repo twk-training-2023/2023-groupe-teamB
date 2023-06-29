@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	//Check eamil,pass→Get username
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
@@ -39,6 +39,7 @@ public class LoginServlet extends HttpServlet {
 		
 		//Connect session
 		HttpSession session = request.getSession();
+		session.setMaxInactiveInterval(300);
 		
 		//Get username
 		String username = stdto.get(0).getName();
@@ -67,11 +68,6 @@ public class LoginServlet extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("/view/LoginView/Menu.jsp");
 			rd.forward(request, response);
 		}
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

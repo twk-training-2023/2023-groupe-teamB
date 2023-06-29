@@ -21,53 +21,53 @@ public class ChangeMineServlet extends HttpServlet {
 	}
 
 	//Update new myself
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		//Initialization
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=utf-8");
-		
+
 		//Get username
 		HttpSession session = request.getSession();
 		String name = (String) session.getAttribute("name");
-		
-		//Get requestdata
-		String myself = request.getParameter("myself");
-
-		//Connect DAO(update password)
-		MyselfDAO mydao = new MyselfDAO();
-		int say = mydao.ChngMn(name,myself);
-		
-		//Name botton
-		String botton = "マイページへ";
-		//Complete comment
-		String URL =  "/view/GeneralView/MyPage.jsp";
-		
-		//Check SQL process
-		if (say == 1) {
-			
-			//Return data
-			request.setAttribute("botton", botton);
-			request.setAttribute("URL", URL);
-			//forward jsp result
-			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Complete.jsp");
+		if (name == null) {
+			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Timeout.jsp");
 			rd.forward(request, response);
-			
 		} else {
-			
-			//Return data
-			request.setAttribute("botton", botton);
-			request.setAttribute("URL", URL);
-			//forward jsp result
-			RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Error.jsp");
-			rd.forward(request, response);
+			//Get requestdata
+			String myself = request.getParameter("myself");
+
+			//Connect DAO(update password)
+			MyselfDAO mydao = new MyselfDAO();
+			int say = mydao.ChngMn(name, myself);
+
+			//Name botton
+			String botton = "マイページへ";
+			//Complete comment
+			String URL = "/view/GeneralView/MyPage.jsp";
+
+			//Check SQL process
+			if (say == 1) {
+
+				//Return data
+				request.setAttribute("botton", botton);
+				request.setAttribute("URL", URL);
+				//forward jsp result
+				RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Complete.jsp");
+				rd.forward(request, response);
+
+			} else {
+
+				//Return data
+				request.setAttribute("botton", botton);
+				request.setAttribute("URL", URL);
+				//forward jsp result
+				RequestDispatcher rd = request.getRequestDispatcher("/view/VersView/Error.jsp");
+				rd.forward(request, response);
+			}
 		}
 	}
 
-	protected void doget(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doPost(request, response);
-	}
 
 }
